@@ -1,17 +1,25 @@
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Outlet } from 'react-router';
-import styles from './header.module.scss';
 
-interface IForm {
-  search: string;
-  categories: string;
-  sorting: string;
-}
+import { booksApi } from '../../store/reducers/booksApi';
+
+import { IFormQuery } from '../../types/store';
+import styles from '../../scssStyles/header.module.scss';
 
 export const Header = () => {
-  const { handleSubmit, register } = useForm<IForm>();
+  const [formState, setFormState] = useState<IFormQuery>({ order: 'relevance', category: 'all' });
+  const { handleSubmit, register } = useForm<IFormQuery>();
+  const { data, refetch } = booksApi.useGetBooksQuery(formState);
+  console.log(data);
 
-  const onSubmit = (data: IForm) => {};
+  const onSubmit = (data: IFormQuery) => {
+    setFormState(data);
+  };
+
+  useEffect(() => {
+    refetch();
+  }, [formState]);
 
   return (
     <>
@@ -24,7 +32,7 @@ export const Header = () => {
               <div className={styles['header__form-container']}>
                 <label className={styles['header__form-label']}>
                   <p className={styles['header__form-label-text']}>Categories</p>
-                  <select className={styles['header__form-select']} {...register('categories')}>
+                  <select className={styles['header__form-select']} {...register('category')}>
                     <option value="all">all</option>
                     <option value="art">art</option>
                     <option value="biography">biography</option>
@@ -36,7 +44,7 @@ export const Header = () => {
                 </label>
                 <label className={styles['header__form-label']}>
                   <p className={styles['header__form-label-text']}>Sorting by</p>
-                  <select className={styles['header__form-select']} {...register('sorting')}>
+                  <select className={styles['header__form-select']} {...register('order')}>
                     <option value="relevance">relevance</option>
                     <option value="newst">newst</option>
                   </select>

@@ -1,5 +1,5 @@
 import { Navigate, useRoutes } from 'react-router-dom';
-import { Header } from './layouts/header';
+import { Header } from './layouts/header/header';
 import { Product } from './pages/product';
 import { Catalog } from './pages/catalog';
 

@@ -1,24 +1,28 @@
-import { Link } from 'react-router-dom';
-import styles from './catalog.module.scss';
+import { CatalogItem } from '../components/catalog/catalogItem';
+import { booksApi } from '../store/reducers/booksApi';
+
+import styles from '../scssStyles/catalog.module.scss';
+import { useTypeSelector } from '../hooks/redux';
 
 export const Catalog = () => {
+  const formQueries = useTypeSelector((state) => state.formReducer);
+  const { data, isLoading, isError } = booksApi.useGetBooksQuery(formQueries);
   return (
     <main className="main">
       <section className={styles.catalog}>
         <div className="container">
-          <p className={styles.found}>443 founds</p>
-          <ul className={styles.catalog__list}>
-            <li className={styles.catalog__item}>
-              <Link to="product/1" className={styles['catalog__item-link']}>
-                Ссылка
-              </Link>
-              <img className={styles['catalog__item-img']} src="" alt="book" />
-              <p className={styles['catalog__item-category']}>Категория</p>
-              <p className={styles['catalog__item-name']}>Название книги</p>
-              <p className={styles['catalog__item-author']}>Автор</p>
-            </li>
-          </ul>
-          <button className="catalog__btn">Поазать больше</button>
+          {isLoading && <h1>загрузка </h1>}
+          {isError && <p>{isError}</p>}
+          {data && !isLoading && !isError && (
+            <>
+              <p className={styles.found}>{data.totalItems}</p>
+              <ul className={styles.catalog__list}>
+                {data?.items && data.items.map((product) => <CatalogItem product={product} />)}
+              </ul>
+              <ul className={styles.catalog__list}></ul>
+              <button className="catalog__btn">Поазать больше</button>
+            </>
+          )}
         </div>
       </section>
     </main>
