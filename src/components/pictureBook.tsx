@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { fetchImg } from '../api/productApi';
+import { Loader } from './loader';
 
 interface IImage {
-  size: string;
+  size: 'sm' | 'lg';
   url: string;
 }
 
-export const AvatarBook = ({ size, url }: IImage) => {
+export const PictureBook = ({ size, url }: IImage) => {
   const [blob, setBlob] = useState<Blob>();
   const [loading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
@@ -25,5 +26,11 @@ export const AvatarBook = ({ size, url }: IImage) => {
       });
   }, []);
 
-  return <img src="" alt="" />;
+  return (
+    <>
+      {blob && !loading && !error && <img src={`${blob}`} alt="Cover" />}
+      {loading && <Loader size={size} />}
+      {error && <p>Ошибка</p>}
+    </>
+  );
 };
