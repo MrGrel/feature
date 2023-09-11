@@ -4,10 +4,12 @@ import { useTypeSelector } from '../hooks/redux';
 
 import { booksApi } from '../store/reducers/booksApi';
 
+import { ButtonToUp } from '../components/buttonToUp';
+import { PictureBook } from '../components/pictureBook';
+
 import { IProduct } from '../types/api';
 
 import styles from '../scssStyles/product.module.scss';
-import { PictureBook } from '../components/pictureBook';
 
 export const Product = () => {
   const [product, setProduct] = useState<IProduct | null>();

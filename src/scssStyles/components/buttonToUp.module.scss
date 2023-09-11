@@ -1,0 +1,35 @@
+.btn-to-up {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  padding: 10px 20px;
+  background: #fff;
+  border: 1px solid #808080;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 22px;
+  transition: all 0.3s ease-in-out;
+
+  &:hover:not(:focus-visible) {
+    outline: none;
+    background: #808080;
+    color: #fff;
+  }
+
+  &:focus-visible {
+    outline: none;
+    background: #808080;
+    color: #fff;
+  }
+
+  &:active:not(:focus-visible) {
+    outline: none;
+    background: #626262;
+    color: #fff;
+  }
+}
+
+.btn-unvisible {
+  visibility: hidden;
+}

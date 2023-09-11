@@ -6,6 +6,7 @@ import { CatalogItem } from '../components/catalog/catalogItem';
 
 import styles from '../scssStyles/catalog.module.scss';
 import { bookSlice } from '../store/reducers/formSlice';
+import { ButtonToUp } from '../components/buttonToUp';
 
 export const Catalog = () => {
   const formQueries = useTypeSelector((state) => state.formReducer);
@@ -38,6 +39,7 @@ export const Catalog = () => {
             Поазать больше
             {isLoading && <Loader size="sm" />}
           </button>
+          <ButtonToUp />
         </div>
       </section>
     </main>
