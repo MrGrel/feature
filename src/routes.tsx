@@ -9,14 +9,14 @@ export const Router = () => {
       path: '/',
       element: <Header />,
       children: [
-        { element: <Navigate to="catalog/1" />, index: true },
+        { element: <Navigate to="catalog" />, index: true },
         {
-          path: 'catalog/:id',
+          path: 'catalog',
           element: <Catalog />,
           children: [],
         },
         {
-          path: 'catalog/:id/product/:id',
+          path: 'catalog/product/:id',
           element: <Product />,
         },
       ],

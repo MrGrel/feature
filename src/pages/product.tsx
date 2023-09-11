@@ -7,6 +7,7 @@ import { booksApi } from '../store/reducers/booksApi';
 import { IProduct } from '../types/api';
 
 import styles from '../scssStyles/product.module.scss';
+import { PictureBook } from '../components/pictureBook';
 
 export const Product = () => {
   const [product, setProduct] = useState<IProduct | null>();
@@ -29,9 +30,7 @@ export const Product = () => {
         <div className="container flex">
           {product && !isLoading && !isError && (
             <>
-              <div className={styles['product__img-container']}>
-                <img className={styles['product__img']} src="" alt="Продукт" />
-              </div>
+              <PictureBook size="lg" url={`${product.volumeInfo.imageLinks.thumbnail}`} />
               <div className={styles['product__container']}>
                 <p className={styles['product__category']}>
                   {product.volumeInfo.categories
@@ -54,6 +53,8 @@ export const Product = () => {
               </div>
             </>
           )}
+          {isLoading && <p>Загрузка</p>}
+          {isError && <p>Ошибка</p>}
         </div>
       </section>
     </main>

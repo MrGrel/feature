@@ -19,17 +19,10 @@
 
   &__item {
     position: relative;
-    max-width: 195px;
+    max-width: 222.5px;
     flex-basis: 24%;
-    padding: 10px;
-    background: #e5e5e5;
-
-    &-img {
-      width: 100px;
-      height: 300px;
-      margin-bottom: 20px;
-      box-shadow: 5px 5px 10px grey;
-    }
+    padding: 20px;
+    background: #f4f4f4;
 
     &-category {
       margin-bottom: 10px;

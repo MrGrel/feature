@@ -4,13 +4,7 @@ interface ISize {
 }
 
 export const Loader = ({ size }: ISize) => {
-  const classContainer =
-    size === 'sm' ? styles['loader-sm__container'] : styles['loader-lg__container'];
   const classLoader = size === 'sm' ? styles['loader-sm'] : styles['loader-lg'];
 
-  return (
-    <div className={classContainer}>
-      <p className={classLoader}></p>
-    </div>
-  );
+  return <p className={classLoader}></p>;
 };
