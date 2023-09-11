@@ -1,8 +1,8 @@
 # Add .env file
 
-the .env file must contain 2 lines
-
 keeping .env file in projects is a bad practice, so I ask you to create it yourself
+
+the .env file must contain 2 lines
 
 ### `REACT_APP_GOOGLE_API = "https://www.googleapis.com/books/v1"`
 ### `REACT_APP_GOOGLE_KEY = 'your api key'`
