@@ -1,6 +1,21 @@
 .header {
   width: 100%;
+  margin-bottom: 20px;
   padding: 30px 0;
+  // Я не знаю насколько это плохо, просто не хотел делать дополнительный блок ради затемнения, но если мне скажут что это плохо, больше не буду так делать =3
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url(../assets/bg-book.png);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+
+  &__title {
+    margin-bottom: 20px;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 32px;
+    color: #fff;
+  }
 
   &__container {
     display: flex;
@@ -14,24 +29,59 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 70%;
+    width: 100%;
 
-    &-input {
-      width: 80%;
-      margin-bottom: 20px;
-      padding: 10px;
-      background: #fff;
-      border: 1px solid #e5e5e5;
-      font-weight: 500;
-      font-size: 18px;
-      line-height: 29px;
-      color: #333;
+    &-submit {
+      border: none;
+      background: none;
+      cursor: pointer;
+    }
 
-      &::placeholder {
+    &-search {
+      &-label {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 70%;
+        margin-bottom: 20px;
+        padding: 10px;
+        background: #fff;
+        border: 1px solid #e5e5e5;
+        transition: all 0.3s ease-in-out;
+
+        &:focus-visible {
+          background: #e5e5e5;
+        }
+      }
+
+      &-input {
+        width: 80%;
+
+        background: #fff;
+        border: none;
         font-weight: 500;
-        font-size: 24px;
+        font-size: 18px;
         line-height: 29px;
-        color: grey;
+        color: #333;
+
+        &::placeholder {
+          font-weight: 500;
+          font-size: 24px;
+          line-height: 29px;
+          color: grey;
+        }
+
+        &:hover:not(:focus-visible) {
+          outline: none;
+        }
+
+        &:focus-visible {
+          outline: none;
+        }
+
+        &:active:not(:focus-visible) {
+          outline: none;
+        }
       }
     }
 
@@ -39,8 +89,12 @@
       display: flex;
       flex-wrap: nowrap;
       justify-content: space-between;
-      gap: 30px;
-      width: 100%;
+      gap: 15px;
+      width: 80%;
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+      }
     }
 
     &-label {
@@ -54,12 +108,17 @@
         margin-right: 10px;
       }
 
+      @media (max-width: 768px) {
+        width: 100%;
+      }
+
       &-text {
         margin-right: 10px;
         font-weight: 400;
         font-size: 24px;
         line-height: 29px;
         color: #e5e5e5;
+        white-space: nowrap;
       }
     }
 

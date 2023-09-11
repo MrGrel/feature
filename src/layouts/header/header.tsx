@@ -1,11 +1,13 @@
 import { useForm } from 'react-hook-form';
-import { Outlet } from 'react-router';
+import { Outlet, useNavigate } from 'react-router';
 
 import { bookSlice } from '../../store/reducers/formSlice';
 import { booksApi } from '../../store/reducers/booksApi';
 import { useTypeDispatch } from '../../hooks/redux';
 
 import { IFormQuery } from '../../types/components';
+
+import { searchSvg } from '../../assets/svg';
 
 import styles from '../../scssStyles/header.module.scss';
 
@@ -14,9 +16,12 @@ export const Header = () => {
   const { setFormQueries } = bookSlice.actions;
   const dispatch = useTypeDispatch();
 
+  const navigate = useNavigate();
+
   const onSubmit = (data: IFormQuery) => {
     dispatch(setFormQueries(data));
     dispatch(booksApi.util.resetApiState());
+    navigate('/catalog');
   };
 
   return (
@@ -26,7 +31,16 @@ export const Header = () => {
           <div className={styles['header__container']}>
             <h1 className={styles['header__title']}>Search for books</h1>
             <form className={styles['header__form']} onSubmit={handleSubmit(onSubmit)}>
-              <input className={styles['header__form-input']} type="text" {...register('search')} />
+              <label className={styles['header__form-search-label']}>
+                <input
+                  className={styles['header__form-search-input']}
+                  type="text"
+                  {...register('search')}
+                />
+                <button type="submit" className={styles['header__form-submit']}>
+                  {searchSvg}
+                </button>
+              </label>
               <div className={styles['header__form-container']}>
                 <label className={styles['header__form-label']}>
                   <p className={styles['header__form-label-text']}>Categories</p>

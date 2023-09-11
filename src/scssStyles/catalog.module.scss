@@ -28,9 +28,15 @@
   &__item {
     position: relative;
     max-width: 222.5px;
+    min-width: 200px;
     flex-basis: 24%;
     padding: 20px;
     background: #f4f4f4;
+
+    @media (max-width: 576px) {
+      flex-basis: 100%;
+      max-width: none;
+    }
 
     &-category {
       margin-bottom: 10px;

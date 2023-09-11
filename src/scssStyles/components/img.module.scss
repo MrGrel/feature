@@ -10,9 +10,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: calc(100% - 100px);
   height: 100%;
-  flex-basis: 48%;
+  flex-basis: 40%;
   padding: 20px 50px;
 }
 

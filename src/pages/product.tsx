@@ -4,12 +4,12 @@ import { useTypeSelector } from '../hooks/redux';
 
 import { booksApi } from '../store/reducers/booksApi';
 
-import { ButtonToUp } from '../components/buttonToUp';
 import { PictureBook } from '../components/pictureBook';
 
 import { IProduct } from '../types/api';
 
 import styles from '../scssStyles/product.module.scss';
+import { Loader } from '../components/loader';
 
 export const Product = () => {
   const [product, setProduct] = useState<IProduct | null>();
@@ -17,6 +17,8 @@ export const Product = () => {
   const formQueries = useTypeSelector((state) => state.formReducer);
   const { data, isLoading, isError, isSuccess } = booksApi.useGetBooksQuery(formQueries);
   const { id } = useParams();
+
+  const classNameContainer = `container ${styles['product__container']}`;
 
   useEffect(() => {
     data?.items.forEach((item: IProduct) => {
@@ -29,24 +31,26 @@ export const Product = () => {
   return (
     <main>
       <section className="section product">
-        <div className="container flex">
+        <div className={classNameContainer}>
           {product && !isLoading && !isError && (
             <>
-              <PictureBook size="lg" url={`${product.volumeInfo.imageLinks.thumbnail}`} />
-              <div className={styles['product__container']}>
-                <p className={styles['product__category']}>
-                  {product.volumeInfo.categories
-                    ? product.volumeInfo.categories[0]
+              <div className={styles['product__img-container']}>
+                <PictureBook size="lg" url={`${product.volumeInfo.imageLinks.thumbnail}`} />
+              </div>
+              <div className={styles['product__card-container']}>
+                <p className={styles['product__card-category']}>
+                  {product.volumeInfo.categories?.length
+                    ? product.volumeInfo.categories.join('/')
                     : 'Not category'}
                 </p>
-                <p className={styles['product__name']}>{product.volumeInfo.title}</p>
-                <p className={styles['product__author']}>
+                <p className={styles['product__card-name']}>{product.volumeInfo.title}</p>
+                <p className={styles['product__card-author']}>
                   {product.volumeInfo.authors?.length
                     ? product.volumeInfo.authors?.join(', ')
                     : 'Not author'}
                 </p>
-                <div className={styles['product__description']}>
-                  <p className={styles['product__description-text']}>
+                <div className={styles['product__card-description']}>
+                  <p className={styles['product__card-description-text']}>
                     {product.volumeInfo.description
                       ? product.volumeInfo.description
                       : 'Not description'}
@@ -55,7 +59,7 @@ export const Product = () => {
               </div>
             </>
           )}
-          {isLoading && <p>Загрузка</p>}
+          {isLoading && <Loader size="lg" />}
           {isError && <p>Ошибка</p>}
         </div>
       </section>

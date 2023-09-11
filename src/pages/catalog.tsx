@@ -28,7 +28,7 @@ export const Catalog = () => {
           {isError && <p>{isError}</p>}
           {data && !isError && (
             <>
-              <p className={styles['catalog__founds']}>{data.totalItems}</p>
+              <p className={styles['catalog__founds']}>Найдено {data.totalItems}</p>
               <ul className={styles['catalog__list']}>
                 {data?.items &&
                   data.items.map((product) => <CatalogItem product={product} key={product.id} />)}
