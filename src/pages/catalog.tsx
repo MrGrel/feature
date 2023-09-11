@@ -7,14 +7,13 @@ import { CatalogItem } from '../components/catalog/catalogItem';
 import styles from '../scssStyles/catalog.module.scss';
 import { bookSlice } from '../store/reducers/formSlice';
 import { ButtonToUp } from '../components/buttonToUp';
-import { Product } from './product';
 
 export const Catalog = () => {
   const formQueries = useTypeSelector((state) => state.formReducer);
   const { setStartIndex } = bookSlice.actions;
   const dispatch = useTypeDispatch();
 
-  const { data, isLoading, isError } = booksApi.useGetBooksQuery(formQueries);
+  const { data, isLoading, isError, isFetching } = booksApi.useGetBooksQuery(formQueries);
 
   const classNameContainer = 'container' + ' ' + styles['catalog__container'];
 
@@ -39,7 +38,7 @@ export const Catalog = () => {
           {data?.totalItems && formQueries.indexForLoads < data.totalItems && (
             <button className={styles['catalog__btn']} onClick={handleClickMore}>
               Поазать больше
-              {isLoading && <Loader size="sm" />}
+              {isFetching && <Loader size="sm" />}
             </button>
           )}
           <ButtonToUp />
