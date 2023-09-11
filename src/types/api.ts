@@ -1,3 +1,10 @@
+export interface IDataQueries {
+  indexForLoads: number;
+  order?: string;
+  search?: string;
+  category?: string;
+}
+
 export interface ICatalog {
   kind: string;
   totalItems: number;

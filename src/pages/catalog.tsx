@@ -1,28 +1,43 @@
-import { CatalogItem } from '../components/catalog/catalogItem';
+import { useTypeDispatch, useTypeSelector } from '../hooks/redux';
 import { booksApi } from '../store/reducers/booksApi';
 
+import { Loader } from '../components/loader';
+import { CatalogItem } from '../components/catalog/catalogItem';
+
 import styles from '../scssStyles/catalog.module.scss';
-import { useTypeSelector } from '../hooks/redux';
+import { bookSlice } from '../store/reducers/formSlice';
 
 export const Catalog = () => {
   const formQueries = useTypeSelector((state) => state.formReducer);
+  const { setStartIndex } = bookSlice.actions;
+  const dispatch = useTypeDispatch();
+
   const { data, isLoading, isError } = booksApi.useGetBooksQuery(formQueries);
+
+  const classNameContainer = 'container' + ' ' + styles['catalog__container'];
+
+  const handleClickMore = () => {
+    dispatch(setStartIndex(30));
+  };
+
   return (
     <main className="main">
       <section className={styles.catalog}>
-        <div className="container">
-          {isLoading && <h1>загрузка </h1>}
+        <div className={classNameContainer}>
           {isError && <p>{isError}</p>}
-          {data && !isLoading && !isError && (
+          {data && !isError && (
             <>
-              <p className={styles.found}>{data.totalItems}</p>
-              <ul className={styles.catalog__list}>
-                {data?.items && data.items.map((product) => <CatalogItem product={product} />)}
+              <p className={styles['catalog__founds']}>{data.totalItems}</p>
+              <ul className={styles['catalog__list']}>
+                {data?.items &&
+                  data.items.map((product) => <CatalogItem product={product} key={product.id} />)}
               </ul>
-              <ul className={styles.catalog__list}></ul>
-              <button className="catalog__btn">Поазать больше</button>
             </>
           )}
+          <button className={styles['catalog__btn']} onClick={handleClickMore}>
+            Поазать больше
+            {isLoading && <Loader size="sm" />}
+          </button>
         </div>
       </section>
     </main>

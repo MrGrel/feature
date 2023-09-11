@@ -1,5 +1,6 @@
-export interface IFormQuery {
-  order?: string;
-  search?: string;
-  category?: string;
+export interface IDataQueriesState {
+  indexForLoads: number;
+  order: string;
+  search: string;
+  category: string;
 }

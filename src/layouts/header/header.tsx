@@ -1,25 +1,23 @@
-import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Outlet } from 'react-router';
 
+import { bookSlice } from '../../store/reducers/formSlice';
 import { booksApi } from '../../store/reducers/booksApi';
+import { useTypeDispatch } from '../../hooks/redux';
 
-import { IFormQuery } from '../../types/store';
+import { IFormQuery } from '../../types/components';
+
 import styles from '../../scssStyles/header.module.scss';
 
 export const Header = () => {
-  const [formState, setFormState] = useState<IFormQuery>({ order: 'relevance', category: 'all' });
   const { handleSubmit, register } = useForm<IFormQuery>();
-  const { data, refetch } = booksApi.useGetBooksQuery(formState);
-  console.log(data);
+  const { setFormQueries } = bookSlice.actions;
+  const dispatch = useTypeDispatch();
 
   const onSubmit = (data: IFormQuery) => {
-    setFormState(data);
+    dispatch(setFormQueries(data));
+    dispatch(booksApi.util.resetApiState());
   };
-
-  useEffect(() => {
-    refetch();
-  }, [formState]);
 
   return (
     <>
