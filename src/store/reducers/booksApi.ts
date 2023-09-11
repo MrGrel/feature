@@ -16,7 +16,7 @@ export const booksApi = createApi({
             ? `&q=${queriesBook.search}+subject:${queriesBook.category}`
             : `&q=subject:${queriesBook.category}`;
 
-        const maxResult = `&maxResults=4`;
+        const maxResult = `&maxResults=30`;
         const startIndex = `&startIndex=${queriesBook.indexForLoads}`;
         const key = `&key=${process.env.REACT_APP_GOOGLE_KEY}`;
 
